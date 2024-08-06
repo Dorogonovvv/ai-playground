@@ -1,44 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { openai } from "../lib/openai";
 
-const DATA = [
-  {
-    id: 1,
-    transaction_id: "txn_123e4567-e89b-12d3-a456-426614174000",
-    amount: 1900,
-    currency: "USD",
-    timestamp: 1722892023429,
-  },
-  {
-    id: 2,
-    transaction_id: "txn_550e8400-e29b-41d4-a716-446655440000",
-    amount: 2100.6,
-    currency: "USD",
-    timestamp: 1722892046823,
-  },
-  {
-    id: 3,
-    transaction_id: "txn_6f1e0400-e29b-41d4-a716-446655440001",
-    amount: 2300.3,
-    currency: "GBP",
-    timestamp: 1722892059234,
-  },
-  {
-    id: 4,
-    transaction_id: "70e8400e-e29b-41d4-a716-446655440002",
-    amount: 2500,
-    currency: "USD",
-    timestamp: 1722892072848,
-  },
-  {
-    id: 5,
-    transaction_id: "txn_80e8400e-e29b-41d4-a716-446655440003",
-    amount: 2700,
-    currency: "USD",
-    timestamp: 1722892072,
-  },
-];
+import DATA from "../api/data-inconsistency/data.json";
 
 const HomePage: React.FC = () => {
   const [analyzeResult, setAnalyzeResult] = useState<string | null>(null);
@@ -47,28 +10,15 @@ const HomePage: React.FC = () => {
   const onAnalyze = async () => {
     setIsLoading(true);
 
-    const requestToOpenAI = `
-      Try to find potential anomalies in the provided data: ${JSON.stringify(
-        DATA
-      )}.
-      Put id as a reference for each anomaly.
-      Return response ol with li tags inside.
-      Please ignore comparing the transaction amount.
-      Try to find as many anomalies as possible.
-    `;
+    const response = await fetch("/api/data-inconsistency");
 
-    const completion = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: requestToOpenAI,
-        },
-      ],
-      model: "gpt-4o-mini-2024-07-18",
-    });
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    console.info(completion);
-    setAnalyzeResult(completion.choices[0].message.content);
+    const openAiResponse = await response.json();
+
+    setAnalyzeResult(openAiResponse.message);
     setIsLoading(false);
   };
 

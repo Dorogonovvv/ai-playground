@@ -5,8 +5,11 @@ Please visit and subscribe to my YouTube channel if you like this repo - https:/
 
 ## How to use
 1. Install dependencies with `npm i`;
-2. Create .env.local file and put there your token like `NEXT_PUBLIC_OPENAI_API_KEY=<your_key>`
+2. Create .env.local file and put there your token like `OPENAI_API_KEY=<your_key>`
 3. Run the app with `npm run dev`;
+
+## Videos
+1. Search for data inconsistency - https://youtu.be/0tV_rAIpGI8
 
 ## Open AI
 Here is a good page to start with https://platform.openai.com/docs/overview
