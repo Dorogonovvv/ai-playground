@@ -10,6 +10,7 @@ Please visit and subscribe to my YouTube channel if you like this repo - https:/
 
 ## Videos
 1. Search for data inconsistency - https://youtu.be/0tV_rAIpGI8
+2. Measure distance and fight fraud - https://youtu.be/1HGMcpLsY7w
 
 ## Open AI
 Here is a good page to start with https://platform.openai.com/docs/overview

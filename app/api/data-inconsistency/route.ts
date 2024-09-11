@@ -1,5 +1,3 @@
-// app/api/hello/route.ts
-
 import { NextRequest, NextResponse } from 'next/server';
 
 const DATA = require("./data.json");
